@@ -1,29 +1,36 @@
 
-import {MainMenu} from './MainMenu';
+import {Home} from './home';
+import { Component } from '@angular/core';
+import { NavController, NavParams } from 'ionic-angular';
 export class Preloader extends Phaser.State {
     loaderText: Phaser.Text;
-
+    logo;
+    preLoadBar;
+    constructor(public navParams: NavParams) {
+        super();
+    }
     preload() {
+        this.logo = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'logo');
+        this.logo.anchor.setTo(0.5);
+        this.preLoadBar = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY + 128, 'preloadbar')
+        this.preLoadBar.anchor.set(0.5);
+        this.load.setPreloadSprite(this.preLoadBar);
         
-        this.loaderText = this.game.add.text(this.world.centerX, 200, "Loading...",
-            { font: "18px Arial", fill: "#A9A91111", align: "center" });
-        this.loaderText.anchor.setTo(0.5);
+       
 
-        this.load.image('titlepage', './assets/titlePage.png');
-        this.load.image('logo', './assets/gameLogo.png');
-       // this.load.audio('click', './assets/click.ogg', true);
-
-        this.load.atlasJSONHash('level01-sprites', './assets/dude.png', './assets/baddie.json');
+        this.load.image('backyard', 'assets/images/sky.png');
+        this.load.image('diamond', 'assets/images/diamond.png');
+        this.load.image('star', 'assets/images/star.png');
+        this.load.image('firstAid', 'assets/images/firstaid.png');
+        this.load.spritesheet('dude', 'assets/images/dude.png', 31,45,9,1,1);
     }
 
     create() {
-        var tween = this.add.tween(this.loaderText).to({ alpha: 0 }, 2000,
-            Phaser.Easing.Linear.None, true);
-        tween.onComplete.add(this.startMainMenu, this);
+        this.game.state.start('Home');
     }
 
     startMainMenu() {
-        this.game.state.start('MainMenu', true, false);
+       
     }
 
 }

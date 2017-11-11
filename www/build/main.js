@@ -68,7 +68,7 @@ var HomePage = (function () {
 }());
 HomePage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-home',template:/*ion-inline-start:"/Users/fkhan/Desktop/ionic-phaser-sample-app/src/pages/home/home.html"*/'\n<ion-content>\n  <div id="game"></div>\n</ion-content>\n'/*ion-inline-end:"/Users/fkhan/Desktop/ionic-phaser-sample-app/src/pages/home/home.html"*/
+        selector: 'page-home',template:/*ion-inline-start:"/Users/fkhan/Desktop/myPhaserGame/src/pages/home/home.html"*/'\n<ion-content>\n  <div id="game"></div>\n</ion-content>\n'/*ion-inline-end:"/Users/fkhan/Desktop/myPhaserGame/src/pages/home/home.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */]])
 ], HomePage);
@@ -185,7 +185,7 @@ var MyApp = (function () {
     return MyApp;
 }());
 MyApp = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"/Users/fkhan/Desktop/ionic-phaser-sample-app/src/app/app.html"*/'<ion-nav [root]="rootPage"></ion-nav>\n'/*ion-inline-end:"/Users/fkhan/Desktop/ionic-phaser-sample-app/src/app/app.html"*/
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"/Users/fkhan/Desktop/myPhaserGame/src/app/app.html"*/'<ion-nav [root]="rootPage"></ion-nav>\n'/*ion-inline-end:"/Users/fkhan/Desktop/myPhaserGame/src/app/app.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */]])
 ], MyApp);
@@ -205,10 +205,10 @@ MyApp = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_p2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_p2__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_phaser_ce__ = __webpack_require__(266);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_phaser_ce___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_phaser_ce__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Boot__ = __webpack_require__(269);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Preloader__ = __webpack_require__(270);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__MainMenu__ = __webpack_require__(271);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Level01__ = __webpack_require__(272);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__my_game__ = __webpack_require__(269);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__preloader__ = __webpack_require__(270);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__boot__ = __webpack_require__(271);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__home__ = __webpack_require__(272);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -227,16 +227,12 @@ var __extends = (this && this.__extends) || (function () {
 
 
 
-//import { Preloader } from './Preloader';
 /**
  * Main entry game class
  * @export
  * @class Game
  * @extends {Phaser.Game}
  */
-var text1;
-var text2;
-var words = ['Ouch!', 'bump', 'eek', 'look out', 'careful', 'mind out', 'watch it!', 'OI!', 'Owww', 'Grrrr', 'that hurt', 'bully'];
 var GameState = (function (_super) {
     __extends(GameState, _super);
     /**
@@ -244,11 +240,11 @@ var GameState = (function (_super) {
      * @memberof Game
      */
     function GameState() {
-        var _this = _super.call(this, 600, 400, __WEBPACK_IMPORTED_MODULE_2_phaser_ce__["AUTO"], 'game', null) || this;
-        _this.state.add('Boot', __WEBPACK_IMPORTED_MODULE_3__Boot__["a" /* Boot */], false);
-        _this.state.add('Preloader', __WEBPACK_IMPORTED_MODULE_4__Preloader__["a" /* Preloader */], false);
-        _this.state.add('MainMenu', __WEBPACK_IMPORTED_MODULE_5__MainMenu__["a" /* MainMenu */], false);
-        _this.state.add('Level01', __WEBPACK_IMPORTED_MODULE_6__Level01__["a" /* Level01 */], false);
+        var _this = _super.call(this, 360, 640, __WEBPACK_IMPORTED_MODULE_2_phaser_ce__["AUTO"], 'game', null) || this;
+        _this.state.add('MyGame', __WEBPACK_IMPORTED_MODULE_3__my_game__["a" /* MyGame */], false);
+        _this.state.add('Preloader', __WEBPACK_IMPORTED_MODULE_4__preloader__["a" /* Preloader */], false);
+        _this.state.add('Boot', __WEBPACK_IMPORTED_MODULE_5__boot__["a" /* Boot */], false);
+        _this.state.add('Home', __WEBPACK_IMPORTED_MODULE_6__home__["a" /* Home */], false);
         _this.state.start('Boot');
         return _this;
     }
@@ -263,7 +259,7 @@ var GameState = (function (_super) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Boot; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyGame; });
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -274,61 +270,147 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var Boot = (function (_super) {
-    __extends(Boot, _super);
-    function Boot(navParams) {
+var MyGame = (function (_super) {
+    __extends(MyGame, _super);
+    function MyGame(navParams) {
         var _this = _super.call(this) || this;
         _this.navParams = navParams;
-        _this.words = ['Ouch!', 'bump', 'eek', 'look out', 'careful', 'mind out', 'watch it!', 'OI!', 'Owww', 'Grrrr', 'that hurt', 'bully'];
+        _this.uiBlocked = false;
+        _this.buttons = [];
         return _this;
     }
-    Boot.prototype.preload = function () {
-        this.game.load.bitmapFont('desyrel', 'assets/fonts/bitmapFonts/desyrel.png', 'assets/fonts/bitmapFonts/desyrel.xml');
-        this.game.load.bitmapFont('stack', 'assets/fonts/bitmapFonts/shortStack.png', 'assets/fonts/bitmapFonts/shortStack.xml');
-        this.game.load.image('bar', 'assets/logo.png');
+    MyGame.prototype.init = function () {
+        /* this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+ 
+         this.scale.pageAlignHorizontally = true;
+         this.scale.pageAlignVertically = true;
+         */
     };
-    Boot.prototype.create = function () {
-        this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-        this.game.physics.startSystem(Phaser.Physics.ARCADE);
-        this.text1 = this.game.add.bitmapText(200, 100, 'desyrel', 'BitmapText', 64);
-        this.text2 = this.game.add.bitmapText(400, 400, 'stack', 'with Physics', 32);
-        this.image = this.game.add.sprite(0, 0, 'bar');
-        this.game.physics.enable(this.text1, Phaser.Physics.ARCADE);
-        this.game.physics.enable(this.text2, Phaser.Physics.ARCADE);
-        this.game.physics.enable(this.image, Phaser.Physics.ARCADE);
-        this.text1.body.collideWorldBounds = true;
-        this.text1.body.bounce.set(1);
-        this.text2.body.collideWorldBounds = true;
-        this.text2.body.bounce.set(1);
-        this.image.body.collideWorldBounds = true;
-        //this.image.body.bounce.set(1);
-        this.text1.body.velocity.setTo(200, 200);
-        this.text2.body.velocity.setTo(-100, -100);
-        //this.image.body.velocity.setTo(200, 200);
-        //this.image.body.collideWorldBounds = true;
-        //this.text1.body.bounce.set(1);
-        //this.game.physics.enable(this.image, Phaser.Physics.ARCADE);
-        this.tweenBar = this.game.add.tween(this.image).to({ x: 100 }, 2000, "Quart.easeOut");
-        // image.body.velocity.x=150;
+    MyGame.prototype.create = function () {
+        this.background = this.game.add.sprite(0, 0, 'backyard');
+        this.background.inputEnabled = true;
+        this.background.events.onInputDown.add(this.placeItem, this);
+        this.dude = this.game.add.sprite(100, 400, 'dude');
+        this.dude.customParams = { health: 100, fun: 100 };
+        this.dude.animations.add('funny', [1, 2, 3, 2, 1], 7, false);
+        this.star = this.game.add.sprite(72, 570, 'star');
+        this.star.anchor.setTo(0.5);
+        this.star.customParams = { healt: 20 };
+        this.star.inputEnabled = true;
+        this.star.events.onInputDown.add(this.pickItem, this);
+        //custome properties
+        this.star.customParams = { healt: 100, fun: 100 };
+        //draggable dude
+        this.dude.inputEnabled = true;
+        this.dude.input.enableDrag();
+        this.diamond = this.game.add.sprite(288, 470, 'diamond');
+        this.diamond.anchor.setTo(0.5);
+        this.diamond.customParams = { health: -10, fun: 20 };
+        this.diamond.inputEnabled = true;
+        this.diamond.events.onInputDown.add(this.pickItem, this);
+        this.firstAid = this.game.add.sprite(288, 570, 'firstAid');
+        this.firstAid.anchor.setTo(0.5);
+        this.firstAid.customParams = { health: 10, fun: -10 };
+        this.firstAid.inputEnabled = true;
+        this.firstAid.events.onInputDown.add(this.rotateDude, this);
+        this.buttons = [this.star, this.diamond, this.firstAid];
+        this.selectedItem = null;
+        this.uiBlocked = false;
+        var style = { font: '290x Arial', fill: '#fff' };
+        this.game.add.text(10, 20, 'Health:', style);
+        this.game.add.text(140, 20, 'Fun:', style);
+        this.healthText = this.game.add.text(80, 20, '', style);
+        this.funText = this.game.add.text(185, 20, '', style);
+        this.refreshStatus();
+        this.statsDecreaser = this.game.time.events.loop(Phaser.Timer.SECOND * 5, this.reduceProperties, this);
     };
-    Boot.prototype.update = function () {
-        //console.log('update');
-        //this.text1.rotation = 0.1;
-        this.game.physics.arcade.collide(this.text1, this.text2, this.onCollide, null, this);
-        // this.game.physics.arcade.collide(this.image, this.text2, this.onCollide, null, this);
-        // this.game.physics.arcade.collide(this.image, this.text1, this.onCollide, null, this);
-        this.tweenBar.start();
-        //text1.text = this.game.rnd.pick(words);
+    MyGame.prototype.rotateDude = function (sprite, event) {
+        if (!this.uiBlocked) {
+            console.log('rotating..;');
+            this.uiBlocked = true;
+            this.clearSelection();
+            sprite.alpha = 0.4;
+            var dudeRotation = this.game.add.tween(this.dude);
+            dudeRotation.to({ angle: '+720' }, 1000);
+            dudeRotation.onComplete.add(function () {
+                this.uiBlocked = false;
+                sprite.a = 1;
+                this.dude.customParams.health += 10;
+                this.refreshStatus();
+                this.clearSelection();
+                console.log(this.dude);
+            }, this);
+            dudeRotation.start();
+        }
     };
-    Boot.prototype.onCollide = function (gameObject, bullet) {
-        console.log('overlap');
-        this.text1.text = this.game.rnd.pick(this.words);
-        //this.navCtrl.push('HomePage');
+    MyGame.prototype.pickItem = function (sprite, event) {
+        console.log('pick item');
+        if (!this.uiBlocked) {
+            this.uiBlocked = false;
+            this.clearSelection();
+            sprite.alpha = 0.4;
+            this.selectedItem = sprite;
+        }
     };
-    return Boot;
+    MyGame.prototype.placeItem = function (sprite, event) {
+        if (this.selectedItem && !this.uiBlocked) {
+            var x = event.position.x;
+            var y = event.position.y;
+            //var newItem  = this.game.add.sprite(x,y, this.selectedItem.key);
+            //newItem.anchor.setTo(0.5);
+            this.newItem = this.game.add.sprite(x, y, this.selectedItem.key);
+            this.newItem.anchor.setTo(0.5);
+            this.newItem.customParams = this.selectedItem.customParams;
+            this.uiBlocked = true;
+            var dudeMovement = this.game.add.tween(this.dude);
+            dudeMovement.to({ x: x, y: y }, 700);
+            dudeMovement.onComplete.add(function () {
+                this.uiBlocked = false;
+                this.clearSelection();
+                this.newItem.kill();
+                this.dude.animations.play('funny');
+                var stat;
+                for (stat in this.newItem.customParams) {
+                    if (this.newItem.customParams.hasOwnProperty(stat)) {
+                        console.log(stat);
+                        this.dude.customParams[stat] += this.newItem.customParams[stat];
+                    }
+                }
+                this.refreshStatus();
+            }, this);
+            dudeMovement.start();
+        }
+    };
+    MyGame.prototype.clearSelection = function () {
+        this.buttons.forEach(function (element, index) {
+            element.alpha = 1;
+        });
+        this.selectedItem = null;
+    };
+    MyGame.prototype.refreshStatus = function () {
+        this.healthText.text = this.dude.customParams.health;
+        this.funText.text = this.dude.customParams.fun;
+    };
+    MyGame.prototype.reduceProperties = function () {
+        this.dude.customParams.health -= 10;
+        this.dude.customParams.fun -= 15;
+        this.refreshStatus();
+    };
+    MyGame.prototype.update = function () {
+        if (this.dude.customParams.health <= 0 || this.dude.customParams.fun <= 0) {
+            this.dude.frame = 5;
+            this.uiBlocked = true;
+            this.game.time.events.add(2000, this.gameOver, this);
+        }
+    };
+    MyGame.prototype.gameOver = function () {
+        this.state.start('Home', true, false, 'GAME OVER');
+        //this.game.state.restart();
+    };
+    return MyGame;
 }(Phaser.State));
 
-//# sourceMappingURL=Boot.js.map
+//# sourceMappingURL=my-game.js.map
 
 /***/ }),
 
@@ -349,28 +431,32 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var Preloader = (function (_super) {
     __extends(Preloader, _super);
-    function Preloader() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    function Preloader(navParams) {
+        var _this = _super.call(this) || this;
+        _this.navParams = navParams;
+        return _this;
     }
     Preloader.prototype.preload = function () {
-        this.loaderText = this.game.add.text(this.world.centerX, 200, "Loading...", { font: "18px Arial", fill: "#A9A91111", align: "center" });
-        this.loaderText.anchor.setTo(0.5);
-        this.load.image('titlepage', './assets/titlePage.png');
-        this.load.image('logo', './assets/gameLogo.png');
-        // this.load.audio('click', './assets/click.ogg', true);
-        this.load.atlasJSONHash('level01-sprites', './assets/dude.png', './assets/baddie.json');
+        this.logo = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'logo');
+        this.logo.anchor.setTo(0.5);
+        this.preLoadBar = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY + 128, 'preloadbar');
+        this.preLoadBar.anchor.set(0.5);
+        this.load.setPreloadSprite(this.preLoadBar);
+        this.load.image('backyard', 'assets/images/sky.png');
+        this.load.image('diamond', 'assets/images/diamond.png');
+        this.load.image('star', 'assets/images/star.png');
+        this.load.image('firstAid', 'assets/images/firstaid.png');
+        this.load.spritesheet('dude', 'assets/images/dude.png', 31, 45, 9, 1, 1);
     };
     Preloader.prototype.create = function () {
-        var tween = this.add.tween(this.loaderText).to({ alpha: 0 }, 2000, Phaser.Easing.Linear.None, true);
-        tween.onComplete.add(this.startMainMenu, this);
+        this.game.state.start('Home');
     };
     Preloader.prototype.startMainMenu = function () {
-        this.game.state.start('MainMenu', true, false);
     };
     return Preloader;
 }(Phaser.State));
 
-//# sourceMappingURL=Preloader.js.map
+//# sourceMappingURL=preloader.js.map
 
 /***/ }),
 
@@ -378,7 +464,7 @@ var Preloader = (function (_super) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MainMenu; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Boot; });
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -389,34 +475,30 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var MainMenu = (function (_super) {
-    __extends(MainMenu, _super);
-    function MainMenu() {
-        return _super !== null && _super.apply(this, arguments) || this;
+var Boot = (function (_super) {
+    __extends(Boot, _super);
+    function Boot(navParams) {
+        var _this = _super.call(this) || this;
+        _this.navParams = navParams;
+        return _this;
     }
-    MainMenu.prototype.create = function () {
-        this.background = this.add.sprite(0, 0, 'titlepage');
-        this.background.alpha = 0;
-        this.logo = this.add.sprite(this.world.centerX, -300, 'logo');
-        this.logo.anchor.setTo(0.5);
-        this.add.tween(this.background).to({ alpha: 1 }, 500, Phaser.Easing.Linear.None, true);
-        this.add.tween(this.logo).to({ y: 220 }, 2000, Phaser.Easing.Elastic.Out, true, 500);
-        this.game.debug.text("Click the logo to start the game", 0, this.world.height, "red");
-        this.input.onDown.addOnce(this.fadeOut, this);
+    Boot.prototype.init = function () {
+        this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+        this.scale.pageAlignHorizontally = true;
+        this.scale.pageAlignVertically = true;
     };
-    MainMenu.prototype.fadeOut = function () {
-        this.add.audio('click', 1, false).play();
-        this.add.tween(this.background).to({ alpha: 0 }, 2000, Phaser.Easing.Linear.None, true);
-        var tween = this.add.tween(this.logo).to({ y: 800 }, 2000, Phaser.Easing.Linear.None, true);
-        tween.onComplete.add(this.startGame, this);
+    Boot.prototype.preload = function () {
+        this.game.load.image('preloadbar', 'assets/images/loader.png');
+        this.game.load.image('logo', 'assets/images/logo.png');
     };
-    MainMenu.prototype.startGame = function () {
-        this.game.state.start('Level01', true, false);
+    Boot.prototype.create = function () {
+        this.game.stage.backgroundColor = '#fff';
+        this.state.start('Preloader');
     };
-    return MainMenu;
+    return Boot;
 }(Phaser.State));
 
-//# sourceMappingURL=MainMenu.js.map
+//# sourceMappingURL=boot.js.map
 
 /***/ }),
 
@@ -424,8 +506,7 @@ var MainMenu = (function (_super) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Level01; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Player__ = __webpack_require__(273);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Home; });
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -436,78 +517,30 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-
-var Level01 = (function (_super) {
-    __extends(Level01, _super);
-    function Level01() {
+var Home = (function (_super) {
+    __extends(Home, _super);
+    function Home() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    Level01.prototype.create = function () {
-        this.physics.startSystem(Phaser.Physics.ARCADE);
-        this.background = this.add.sprite(0, 0, 'level01-sprites', 'background');
-        this.player = new __WEBPACK_IMPORTED_MODULE_0__Player__["a" /* Player */](this.game, this.world.centerX, this.world.centerX);
-        this.player.anchor.setTo(0, 5);
-        this.game.debug.text("Use Right and Left arrow keys to move the bat", 0, this.world.height, "red");
+    Home.prototype.init = function (message) {
+        this.message = message;
     };
-    return Level01;
+    Home.prototype.create = function () {
+        this.background = this.game.add.sprite(0, 0, 'backyard');
+        this.background.inputEnabled = true;
+        this.background.events.onInputDown.add(function () {
+            this.state.start('MyGame');
+        }, this);
+        var style = { font: '35px Arial', fill: '#fff' };
+        this.game.add.text(30, this.game.world.centerY + 200, 'Touch To Start', style);
+        if (this.message) {
+            this.game.add.text(60, this.game.world.centerY - 200, this.message, style);
+        }
+    };
+    return Home;
 }(Phaser.State));
 
-//# sourceMappingURL=Level01.js.map
-
-/***/ }),
-
-/***/ 273:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Player; });
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var Player = (function (_super) {
-    __extends(Player, _super);
-    function Player(game, x, y) {
-        var _this = _super.call(this, game, x, y, 'level01-sprites', 1) || this;
-        _this.anchor.setTo(0.5);
-        _this.animations.add('fly', [0, 1], 5, true);
-        game.add.existing(_this);
-        // Physics
-        game.physics.enable(_this);
-        _this.body.collideWorldBounds = true;
-        _this.body.setCircle(20);
-        return _this;
-    }
-    Player.prototype.update = function () {
-        this.body.velocity.x = 0;
-        if (this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
-            this.body.velocity.x = -50;
-            this.animations.play('fly');
-            if (this.scale.x === -1) {
-                this.scale.x = 1;
-            }
-        }
-        else if (this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
-            this.body.velocity.x = 50;
-            this.animations.play('fly');
-            if (this.scale.x === 1) {
-                this.scale.x = -1;
-            }
-        }
-        else {
-            this.animations.frame = 0;
-        }
-    };
-    return Player;
-}(Phaser.Sprite));
-
-//# sourceMappingURL=Player.js.map
+//# sourceMappingURL=home.js.map
 
 /***/ })
 

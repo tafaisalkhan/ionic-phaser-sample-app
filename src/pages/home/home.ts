@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
-import { Game } from '../../game/game';
 import { GameState } from '../../game/gamesState';
 
 @Component({
@@ -15,7 +14,7 @@ export class HomePage {
    * @type {Game}
    * @memberof HomePage
    */
-  private gameInstance: Game;
+
   private gameInstance1: GameState;
 
   /**
