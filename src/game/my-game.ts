@@ -14,9 +14,21 @@ export class MyGame extends Phaser.State {
    newItem;
    healthText;
    funText;
-  socket;
+   socket;
    options: {'forceNew':true }
-  statsDecreaser
+   statsDecreaser
+   firstNumber;
+   secNumber;
+   secNo;
+   firstNo;
+   resultNo;
+   other;
+   selcedNumber;
+   questionCount;
+   timerCount;
+   pointsCount;
+   fontColors = [0xff0000, 0x0000ff];
+   updateTrue; false;
     constructor(public navParams: NavParams) {
         super();
     }
@@ -33,7 +45,8 @@ export class MyGame extends Phaser.State {
     create() {
         
         this.background = this.game.add.sprite(0,0, 'backyard');
-        this.background.inputEnabled = true;
+       
+       /* this.background.inputEnabled = true;
         this.background.events.onInputDown.add(this.placeItem, this);
         this.dude = this.game.add.sprite(100,400, 'dude');
         this.dude.customParams = {health: 100, fun: 100}
@@ -69,16 +82,124 @@ export class MyGame extends Phaser.State {
 
         this.selectedItem = null;
         this.uiBlocked = false;
+*/
+        var style ={font:'290x Arial', fill: 'bule'};
+        //this.game.add.text(10,20, 'Question No:', style);
+        //this.game.add.text(140,20, 'Timer:', style);
+        //this.game.add.text(280,20, 'Points:', style);
 
-        var style ={font:'290x Arial', fill: '#fff'};
-        this.game.add.text(10,20, 'Health:', style);
-        this.game.add.text(140,20, 'Fun:', style);
+        //this.healthText  = this.game.add.text(80,20, '' , style);
+        //this.funText = this.game.add.text(185,20, '' , style);
+        this.game.add.bitmapText(10, 20, 'stack', 'Q.No:', 20);
+        this.game.add.bitmapText(140, 20, 'stack', 'Timer:', 20);
+        this.game.add.bitmapText(280, 20, 'stack', 'Points:', 20);
 
-        this.healthText  = this.game.add.text(80,20, '' , style);
-        this.funText = this.game.add.text(185,20, '' , style);
+        this.questionCount  = this.game.add.bitmapText(25, 40, 'desyrel', '23', 20);
+        this.questionCount.tint = this.fontColors[1];
+        this.timerCount  = this.game.add.bitmapText(155, 40, 'desyrel', '100', 20);
+        this.timerCount.tint = this.fontColors[0];
+        this.pointsCount  = this.game.add.bitmapText(310, 40, 'desyrel', '0', 20);
+        this.pointsCount.tint = this.fontColors[1];
         this.refreshStatus();
 
+
+        this.other  = this.game.add.bitmapText(100, 100, 'stack', 'Addition', 40);
+        this.firstNo = this.game.add.bitmapText(50, 180, 'desyrel', '?', 40);
+        this.firstNo.tint = this.fontColors[1];
+        this.other = this.game.add.bitmapText(100, 180, 'stack', '+', 40);
+        this.secNo = this.game.add.bitmapText(170, 180, 'desyrel', '?', 40);
+        this.secNo.tint = this.fontColors[1];
+        this.other = this.game.add.bitmapText(230, 180, 'stack', '=', 40);
+        this.resultNo = this.game.add.bitmapText(300, 180, 'desyrel', '?', 40);
+        this.resultNo.tint = this.fontColors[0];
+
+        //this.firstNo.text = "1"
+        //this.firstNo = this.game.add.bitmapText(30, 180, 'stack', '1', 40);
+
+
+        var coins = this.game.add.group();
+        
+            //  Now let's add 50 coins into it
+            var x =  120;
+            var y = 280;
+            debugger;
+            for (var i = 0; i < 10; i++)
+            {
+
+                if(i == 3){
+                   
+                    y += 80;
+                    x =  120;
+                }
+                else if(i == 6){
+                   
+                    y += 80;
+                    x =  120;
+                   
+                }
+                else if(i == 9){
+                    
+                     y += 80;
+                     x = 170;
+                    
+                 }
+                
+                 this.secNumber = this.game.add.bitmapText(x, y, 'desyrel-pink', i+"",  32);
+              
+                x += 50;
+           
+                this.secNumber.inputEnabled = true;
+                this.secNumber.input.enableDrag();
+                this.secNumber.customParams = {value: i}
+                this.secNumber.events.onInputDown.add(this.numberClick, this);
+                this.secNumber.events.onDragStart.add(this.onDragStart, this);
+                this.secNumber.events.onDragStop.add(this.onDragStop, this);
+                this.secNumber.anchor.setTo(0.5);
+            }
+        
+    
+            //coins.scale.set(2, 2);
+
+        var button = this.game.add.button(5, 550, 'refresh', this.actionRefresh, this, 2, 1, 0);
+        button.scale.setTo(0.4, 0.4);
+        var button = this.game.add.button(275, 550, 'ok', this.actionOnClick, this, 2, 1, 0);
+        button.scale.setTo(0.4, 0.4);
         this.statsDecreaser = this.game.time.events.loop(Phaser.Timer.SECOND * 5, this.reduceProperties, this);
+    }
+    onDragStart(sprite, event){
+        sprite.alpha = 0.4;
+        sprite.y = sprite.y - 30;
+        sprite.scale.set(2, 2);
+        this.selcedNumber = sprite
+
+        //copy sprite
+        this.secNumber = this.game.add.sprite(sprite.x, sprite.y + 30 , sprite.generateTexture());
+        this.secNumber.customParams = {value: sprite.customParams.value}
+        this.secNumber.inputEnabled = true;
+        this.secNumber.input.enableDrag();
+        this.secNumber.events.onDragStart.add(this.onDragStart, this);
+        this.secNumber.events.onDragStop.add(this.onDragStop, this);
+        this.secNumber.events.onInputDown.add(this.numberClick, this);
+        this.secNumber.anchor.setTo(0.5);
+        
+    }
+    onDragStop(sprite, event){
+        sprite.kill();
+        this.updateTrue = false;
+        this.game.time.events.add(500, this.resetBtn, this);
+        this.selcedNumber = undefined;
+    }
+    actionRefresh(){
+        this.firstNo.kill();
+        //this.secNo.kill();
+        //this.firstNo.text = "?"
+       this.firstNo = this.game.add.bitmapText(50, 180, 'desyrel', '?', 40);
+       this.firstNo.tint = this.fontColors[1];
+       this.secNo = this.game.add.bitmapText(170, 180, 'desyrel', '?', 40);
+       this.secNo.tint = this.fontColors[1];
+    }
+    actionOnClick(){
+
     }
     rotateDude(sprite, event){
         if(!this.uiBlocked){
@@ -109,6 +230,15 @@ export class MyGame extends Phaser.State {
             sprite.alpha = 0.4;
             this.selectedItem = sprite;
         }
+    }
+    numberClick(sprite, events){
+        console.log(sprite._text);;
+        
+    }
+    resetBtn(){
+        //this.selcedNumber.scale.set(1);
+        //this.selcedNumber.alpha = 1;
+        
     }
     placeItem(sprite, event){
         if(this.selectedItem && !this.uiBlocked){
@@ -156,26 +286,76 @@ export class MyGame extends Phaser.State {
         this.selectedItem = null;
     }
     refreshStatus(){
-        this.healthText.text = this.dude.customParams.health;
-        this.funText.text = this.dude.customParams.fun;
+       // this.healthText.text = this.dude.customParams.health;
+       // this.funText.text = this.dude.customParams.fun;
     }
     reduceProperties(){
-        this.dude.customParams.health -= 10;
-        this.dude.customParams.fun -= 15;
+        //this.dude.customParams.health -= 10;
+        //this.dude.customParams.fun -= 15;
         this.refreshStatus();
     }
     update() {
-        if(this.dude.customParams.health <= 0 || this.dude.customParams.fun <= 0){
-            this.dude.frame = 5;
-            this.uiBlocked = true;
+        //if(this.dude.customParams.health <= 0 || this.dude.customParams.fun <= 0){
+         //   this.dude.frame = 5;
+          //  this.uiBlocked = true;
 
-            this.game.time.events.add(2000, this.gameOver, this);
-        }
+            //this.game.time.events.add(2000, this.gameOver, this);
+       // }
       
+       if(this.selcedNumber != undefined && !this.updateTrue){
+            if (this.checkOverlap(this.selcedNumber, this.firstNo))
+            {
+                try{
+                    if(isNaN(parseInt(this.firstNo.text))){
+                        this.firstNo.text = this.selcedNumber.customParams.value;
+                    }
+                    else{
+                        var tmp = parseInt(this.firstNo.text);
+                        tmp = tmp + this.selcedNumber.customParams.value;
+                        this.firstNo.text = tmp;
+                    }
+                   
+
+                
+                }
+                catch(e){
+
+                }
+                console.log('Drag the sprites. Overlapping: true');
+                this.updateTrue = true
+            }
+            else  if (this.checkOverlap(this.selcedNumber, this.secNo))
+            {
+                try{
+                    if(isNaN(parseInt(this.secNo.text))){
+                        this.secNo.text = this.selcedNumber.customParams.value;
+                    }
+                    else{
+                        var tmp = parseInt(this.secNo.text);
+                        tmp = tmp + this.selcedNumber.customParams.value;
+                        this.secNo.text = tmp;
+                    }
+               
+                }
+                catch(e){
+
+                }
+                console.log('Drag the sprites. Overlapping: false');
+                this.updateTrue = true;
+            }
+         }
     }
     gameOver(){
         this.state.start('Home', true, false, 'GAME OVER');
         //this.game.state.restart();
     }
+    checkOverlap(spriteA, spriteB) {
+        
+         var boundsA = spriteA.getBounds();
+        var boundsB = spriteB.getBounds();
+      
+          return Phaser.Rectangle.intersects(boundsA, boundsB);
+        
+        }
   
 }
