@@ -23,6 +23,18 @@ export class Preloader extends Phaser.State {
         this.load.image('diamond', 'assets/images/diamond.png');
         this.load.image('star', 'assets/images/star.png');
         this.load.image('firstAid', 'assets/images/firstaid.png');
+        this.load.image('classBoard', 'assets/images/classroom-board.png');
+        this.load.image('line', 'assets/images/line.png');
+        this.load.image('selectBar', 'assets/images/selectbar.png');
+        this.load.image('no1', 'assets/images/no1.png');
+        this.load.image('ans', 'assets/images/ans.png');
+        this.load.image('plus', 'assets/images/plus.png');
+        this.load.image('equal', 'assets/images/equal.png');
+        this.load.image('sub', 'assets/images/sub.png');
+        this.load.image('divide', 'assets/images/divide.png');
+        this.load.image('multi', 'assets/images/multi.png');
+        this.load.image('wrong', 'assets/images/wrong.png');
+        this.load.image('correct', 'assets/images/correct.png');
         this.load.spritesheet('dude', 'assets/images/dude.png', 31,45,9,1,1);
         this.game.load.bitmapFont('desyrel', 'assets/fonts/bitmapFonts/desyrel.png', 'assets/fonts/bitmapFonts/desyrel.xml');
         this.game.load.bitmapFont('desyrel-pink', 'assets/fonts/bitmapFonts/desyrel-pink.png', 'assets/fonts/bitmapFonts/desyrel-pink.xml');

@@ -11,7 +11,11 @@ export class Home extends Phaser.State {
         this.background.inputEnabled = true;
 
         this.background.events.onInputDown.add(function(){
-            this.state.start('MyGame')
+            //this.state.start('Add')
+            this.state.start('MathGame')
+            
+            //this.state.start('Game');
+            console.log('game');
         }, this)
 
        var style = {font:'35px Arial', fill: '#fff'};

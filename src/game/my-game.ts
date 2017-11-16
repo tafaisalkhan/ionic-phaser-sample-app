@@ -29,6 +29,9 @@ export class MyGame extends Phaser.State {
    pointsCount;
    fontColors = [0xff0000, 0x0000ff];
    updateTrue; false;
+   option1;
+   option2;
+   option3;
     constructor(public navParams: NavParams) {
         super();
     }
@@ -104,19 +107,38 @@ export class MyGame extends Phaser.State {
 
 
         this.other  = this.game.add.bitmapText(100, 100, 'stack', 'Addition', 40);
-        this.firstNo = this.game.add.bitmapText(50, 180, 'desyrel', '?', 40);
+        this.firstNo = this.game.add.bitmapText(50, 250, 'desyrel', '888', 45);
         this.firstNo.tint = this.fontColors[1];
-        this.other = this.game.add.bitmapText(100, 180, 'stack', '+', 40);
-        this.secNo = this.game.add.bitmapText(170, 180, 'desyrel', '?', 40);
+        this.firstNo.anchor.setTo(0.5);
+        this.other = this.game.add.bitmapText(110, 250, 'stack', '+', 45);
+        this.other.anchor.setTo(0.5);
+        this.secNo = this.game.add.bitmapText(170, 250, 'desyrel', '888', 45);
         this.secNo.tint = this.fontColors[1];
-        this.other = this.game.add.bitmapText(230, 180, 'stack', '=', 40);
-        this.resultNo = this.game.add.bitmapText(300, 180, 'desyrel', '?', 40);
+        this.secNo.anchor.setTo(0.5);
+        this.other = this.game.add.bitmapText(230, 250, 'stack', '=', 60);
+        this.other.anchor.setTo(0.5);
+        this.resultNo = this.game.add.bitmapText(300, 250, 'desyrel', '888', 45);
         this.resultNo.tint = this.fontColors[0];
+        this.resultNo.anchor.setTo(0.5);
 
+
+        this.other  = this.game.add.bitmapText(150, 350, 'stack', 'Select Correct Answer', 20);
+        this.other.anchor.setTo(0.5);
+
+        this.option1 = this.game.add.bitmapText(50, 400, 'desyrel', '888', 30);
+        this.option2 = this.game.add.bitmapText(170, 400, 'desyrel', '888', 30);
+        this.option3 = this.game.add.bitmapText(300, 400, 'desyrel', '888', 30);
+
+        this.option1.inputEnabled = true;
+        this.option1.events.onInputDown.add(this.resultSelected, this);
+        this.option1.anchor.setTo(0.5);
+        this.option2.anchor.setTo(0.5);
+        this.option3.anchor.setTo(0.5);
+        
         //this.firstNo.text = "1"
         //this.firstNo = this.game.add.bitmapText(30, 180, 'stack', '1', 40);
 
-
+/*
         var coins = this.game.add.group();
         
             //  Now let's add 50 coins into it
@@ -157,7 +179,7 @@ export class MyGame extends Phaser.State {
                 this.secNumber.anchor.setTo(0.5);
             }
         
-    
+  */  
             //coins.scale.set(2, 2);
 
         var button = this.game.add.button(5, 550, 'refresh', this.actionRefresh, this, 2, 1, 0);
@@ -165,6 +187,15 @@ export class MyGame extends Phaser.State {
         var button = this.game.add.button(275, 550, 'ok', this.actionOnClick, this, 2, 1, 0);
         button.scale.setTo(0.4, 0.4);
         this.statsDecreaser = this.game.time.events.loop(Phaser.Timer.SECOND * 5, this.reduceProperties, this);
+    }
+    resultSelected(sprite, event){
+        console.log('result selected');
+        //sprite.scale.set(2, 2);
+        this.game.add.tween(sprite.scale).to( { x: 1.5, y:1.5 }, 1000, Phaser.Easing.Bounce.Out, true);
+        var userOptionSelected = this.game.add.sprite(sprite.x, sprite.y, 'wrong');
+        userOptionSelected.anchor.setTo(0.5);
+        userOptionSelected.scale.setTo(2, 2);
+        
     }
     onDragStart(sprite, event){
         sprite.alpha = 0.4;
