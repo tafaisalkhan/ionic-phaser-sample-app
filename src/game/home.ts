@@ -55,7 +55,7 @@ export class Home extends Phaser.State {
             var temp = this.game.add.bitmapText(200, 300, 'desyrel', this.message.wrongAnswer, 30);
             temp.tint = this.fontColors[1];
             this.game.add.bitmapText(30, 450 , 'stack', 'Touch To Re-Start', 30);
-            //this.game.add.text(60, this.game.world.centerY -200, this.message.correctAnswer, style);
+           
         }
         else{
             this.game.add.bitmapText(10, 250 , 'stack', 'Touch To Start', 40);

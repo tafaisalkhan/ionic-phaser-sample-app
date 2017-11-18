@@ -3,12 +3,9 @@ import "pixi";
 import "p2";
 import * as Phaser from "phaser-ce";
 import { MyGame } from './my-game';
-import { MathGame } from './math-game';
 import { Preloader } from './preloader';
 import { Boot } from './boot';
 import { Home } from './home';
-import { Adding } from './adding';
-
 /**
  * Main entry game class
  * @export
@@ -29,9 +26,6 @@ export class GameState  extends Phaser.Game {
         this.state.add('Preloader', Preloader, false);
         this.state.add('Boot', Boot, false);
         this.state.add('Home', Home, false);
-        this.state.add('MathGame', Home, false);
-        this.state.add('Add', Adding, false);
-
         this.state.start('Boot');
        
      

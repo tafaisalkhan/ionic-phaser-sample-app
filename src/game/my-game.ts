@@ -4,17 +4,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { Socket } from 'ng-socket-io';
 export class MyGame extends Phaser.State {
    background;
-   star;
-   diamond;
-   dude;
    uiBlocked: boolean = false;
-   selectedItem;
-   buttons = []
-   firstAid;
-   newItem;
-   healthText;
-   funText;
-   socket;
    options: {'forceNew':true }
    statsDecreaser
    firstNumber;
@@ -45,16 +35,13 @@ export class MyGame extends Phaser.State {
    correctAnswer = 0;
    wrongAnswer = 0;
    audio;
+   newItem;
+   selectedItem;
     constructor(public navParams: NavParams) {
         super();
     }
     init(){
-       //this.socket = io('http://localhost:3000', this.options);
-       /* this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-
-        this.scale.pageAlignHorizontally = true;
-        this.scale.pageAlignVertically = true;
-        */
+       
     }
    
 
@@ -157,8 +144,7 @@ export class MyGame extends Phaser.State {
                     }
                 }
                 else{
-                   
-                   
+
                     if(this.pointNo > 100 && this.pointNo < 150){
                         this.level = (this.level -5) + 1;
                         this.mutipulLevel = this.mutipulLevel - 1;
@@ -215,23 +201,7 @@ export class MyGame extends Phaser.State {
         var tween = this.game.add.tween(this.timerCount).to( { alpha: 1 }, 100, Phaser.Easing.Linear.None, true);
         tween.start();
     }
-    onDragStart(sprite, event){
-        sprite.alpha = 0.4;
-        sprite.y = sprite.y - 30;
-        sprite.scale.set(2, 2);
-        this.selcedNumber = sprite
-
-        //copy sprite
-        this.secNumber = this.game.add.sprite(sprite.x, sprite.y + 30 , sprite.generateTexture());
-        this.secNumber.customParams = {value: sprite.customParams.value}
-        this.secNumber.inputEnabled = true;
-        this.secNumber.input.enableDrag();
-        this.secNumber.events.onDragStart.add(this.onDragStart, this);
-        this.secNumber.events.onDragStop.add(this.onDragStop, this);
-        this.secNumber.events.onInputDown.add(this.numberClick, this);
-        this.secNumber.anchor.setTo(0.5);
-        
-    }
+   
     updateQuestion(){
         this.levelType  = this.randomNo(1, 3)
         
@@ -268,8 +238,6 @@ export class MyGame extends Phaser.State {
 
 
         }
-
-
 
         var hideNo = this.randomNo(1,3);
         if(hideNo == 1){
@@ -362,9 +330,6 @@ export class MyGame extends Phaser.State {
         tween.start();
         
         this.uiBlocked = false;
-
-
-       
         console.log(this.correctResult);
         
     
@@ -377,7 +342,6 @@ export class MyGame extends Phaser.State {
         catch(e){
 
         }
-        this.refreshStatus();
         this.option1.scale.setTo(1, 1);
         this.option2.scale.setTo(1, 1);
         this.option3.scale.setTo(1, 1);
@@ -415,21 +379,11 @@ export class MyGame extends Phaser.State {
         this.resultNo = this.game.add.bitmapText(300, 250, 'desyrel', '?', 45);
         this.resultNo.tint = this.fontColors[0];
         this.resultNo.anchor.setTo(0.5);
-
-
         this.other  = this.game.add.bitmapText(150, 350, 'stack', 'Select Correct Answer', 20);
         this.other.anchor.setTo(0.5);
-
-        
-
        
     }
-    onDragStop(sprite, event){
-        sprite.kill();
-        this.updateTrue = false;
-        this.game.time.events.add(500, this.resetBtn, this);
-        this.selcedNumber = undefined;
-    }
+    
     actionRefresh(){
         this.firstNo.kill();
         //this.secNo.kill();
@@ -439,120 +393,14 @@ export class MyGame extends Phaser.State {
        this.secNo = this.game.add.bitmapText(170, 180, 'desyrel', '?', 40);
        this.secNo.tint = this.fontColors[1];
     }
-    actionOnClick(){
 
-    }
-    rotateDude(sprite, event){
-        if(!this.uiBlocked){
-            console.log('rotating..;')
-            this.uiBlocked = true;
-            this.clearSelection();
-            sprite.alpha = 0.4;
-            
-            var dudeRotation = this.game.add.tween(this.dude);
-            dudeRotation.to({angle:'+720'}, 1000);
-            dudeRotation.onComplete.add(function(){
-                this.uiBlocked = false;
-                sprite.a  =1;
-                this.dude.customParams.health += 10;
-                this.refreshStatus();
-                this.clearSelection();
-                console.log(this.dude);
-            }, this);
-            dudeRotation.start();
-        }
-    }
-    pickItem(sprite, event){
-        console.log('pick item');
-      
-        if(!this.uiBlocked){
-            this.uiBlocked = false
-            this.clearSelection();
-            sprite.alpha = 0.4;
-            this.selectedItem = sprite;
-        }
-    }
-    numberClick(sprite, events){
-        console.log(sprite._text);;
-        
-    }
-    resetBtn(){
-        //this.selcedNumber.scale.set(1);
-        //this.selcedNumber.alpha = 1;
-        
-    }
-    placeItem(sprite, event){
-        if(this.selectedItem && !this.uiBlocked){
-            var x = event.position.x;
-            var y = event.position.y;
-
-            //var newItem  = this.game.add.sprite(x,y, this.selectedItem.key);
-            //newItem.anchor.setTo(0.5);
-            this.newItem = this.game.add.sprite(x,y, this.selectedItem.key);
-            this.newItem.anchor.setTo(0.5);
-            this.newItem.customParams = this.selectedItem.customParams
-
-            this.uiBlocked = true;
-
-            var dudeMovement = this.game.add.tween(this.dude);
-            dudeMovement.to({x: x , y: y} , 700 );
-            dudeMovement.onComplete.add(function()
-            {
-                this.uiBlocked = false;
-                this.clearSelection();
-                this.newItem.kill();
-                //this.socket.disconnect();
-                this.dude.animations.play('funny');
-
-                var stat;
-                for(stat in this.newItem.customParams){
-                    if(this.newItem.customParams.hasOwnProperty(stat)){
-                        console.log(stat);
-                        this.dude.customParams[stat] += this.newItem.customParams[stat];
-                    }
-                }
-
-                this.refreshStatus();
-
-            }, this);
-            
-            dudeMovement.start();
-
-        }
-    }
-    clearSelection(){
-        this.buttons.forEach(function(element, index){
-            element.alpha = 1;
-        })
-        this.selectedItem = null;
-    }
-    refreshStatus(){
-       // this.healthText.text = this.dude.customParams.health;
-       // this.funText.text = this.dude.customParams.fun;
-    }
-    reduceProperties(){
-        //this.dude.customParams.health -= 10;
-        //this.dude.customParams.fun -= 15;
-        this.refreshStatus();
-    }
     update() {
-        //if(this.dude.customParams.health <= 0 || this.dude.customParams.fun <= 0){
-         //   this.dude.frame = 5;
-          //  this.uiBlocked = true;
-
-            //this.game.time.events.add(2000, this.gameOver, this);
-       // }
+     
       
        if(!this.updateTrue){
                 console.log('update')
                 this.updateTrue = true
-               
-
-                //this.option1.setText()
-
-
-
-           
+       
         }
     }
     hideNumber(){
@@ -594,13 +442,5 @@ export class MyGame extends Phaser.State {
         //return  Math.floor(Math.random() * endNo) + startNo ;
         return Math.floor(Math.random()*(endNo-startNo+1)+startNo);
       }
-    checkOverlap(spriteA, spriteB) {
-        
-         var boundsA = spriteA.getBounds();
-        var boundsB = spriteB.getBounds();
-      
-          return Phaser.Rectangle.intersects(boundsA, boundsB);
-        
-        }
   
 }
