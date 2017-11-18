@@ -8,12 +8,15 @@ export class Boot extends Phaser.State {
     }
     init(){
         this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-        this.scale.pageAlignHorizontally = true;
-        this.scale.pageAlignVertically = true;
+        //this.scale.pageAlignHorizontally = true;
+        //this.scale.pageAlignVertically = true;
     }
     preload() {
-        this.game.load.image('preloadbar', 'assets/images/loader.png');
-        this.game.load.image('logo', 'assets/images/logo.png');
+        //this.game.load.image('preloadbar', 'assets/images/loader.png');
+        this.game.load.image('logo', 'assets/images/icon.png');
+        
+    
+
     }
 
     create() {
