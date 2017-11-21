@@ -18,15 +18,15 @@ export class GameState  extends Phaser.Game {
      * Creates an instance of Game.
      * @memberof Game
      */
-   
-       constructor() {
-        super(360, 640, Phaser.AUTO, 'game', null);
-        
+       
+     
+       constructor(data) {
+        super(360, 640, Phaser.AUTO, 'game', null);        
         this.state.add('MyGame', MyGame, false);
         this.state.add('Preloader', Preloader, false);
         this.state.add('Boot', Boot, false);
         this.state.add('Home', Home, false);
-        this.state.start('Boot');
+        this.state.start('Boot', true, false, {message: data});
        
      
     }
